@@ -107,7 +107,7 @@ typedef enum : NSUInteger {
 - (void)onKeyboardWillHide:(NSNotification *)sender
 {
     if (self.isWK) {
-        [self setKeyboardHeight:0 delay:0.01];
+        [self setKeyboardHeight:0 delay:0];
         [self resetScrollView];
     }
     [self.commandDelegate evalJs:@"Keyboard.fireOnHiding();"];
