@@ -21,7 +21,7 @@
         </js-module>
 
         <config-file target="config.xml" parent="/*">
-            <feature name="IonicKeyboard">
+            <feature name="Keyboard">
                 <param name="ios-package" value="CDVIonicKeyboard" onload="true"/>
             </feature>
         </config-file>
