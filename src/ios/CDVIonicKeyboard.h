@@ -25,6 +25,7 @@
 @property (readwrite, assign, nonatomic) BOOL disableScrollingInShrinkView;
 @property (readwrite, assign, nonatomic) BOOL hideFormAccessoryBar;
 @property (readonly, assign, nonatomic) BOOL keyboardIsVisible;
+@property (readonly, assign, nonatomic) BOOL shouldDelay;
 
 - (void)hideFormAccessoryBar:(CDVInvokedUrlCommand*)command;
 - (void)hide:(CDVInvokedUrlCommand*)command;
