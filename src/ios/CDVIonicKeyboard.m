@@ -38,6 +38,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, readwrite, assign) BOOL keyboardIsVisible;
 @property (nonatomic, readwrite) ResizePolicy keyboardResizes;
 @property (nonatomic, readwrite) BOOL isWK;
+@property (nonatomic, readwrite, assign) BOOL shouldDelay;
 @property (nonatomic, readwrite) int paddingBottom;
 
 @end
@@ -54,6 +55,8 @@ typedef enum : NSUInteger {
 - (void)pluginInitialize
 {
     NSDictionary *settings = self.commandDelegate.settings;
+    
+    self.shouldDelay = true;
 
     self.keyboardResizes = ResizeNative;
     BOOL doesResize = [settings cordovaBoolSettingForKey:@"KeyboardResize" defaultValue:YES];
@@ -107,7 +110,13 @@ typedef enum : NSUInteger {
 - (void)onKeyboardWillHide:(NSNotification *)sender
 {
     if (self.isWK) {
-        [self setKeyboardHeight:0 delay:0];
+        if (self.shouldDelay) {
+            [self setKeyboardHeight:0 delay:0.01];
+        } else {
+            self.shouldDelay = true;
+            [self setKeyboardHeight:0 delay:0];
+        }
+        
         [self resetScrollView];
     }
     [self.commandDelegate evalJs:@"Keyboard.fireOnHiding();"];
@@ -258,6 +267,7 @@ static IMP WKOriginalImp;
 
 - (void)hide:(CDVInvokedUrlCommand *)command
 {
+    self.shouldDelay = false;
     [self.webView endEditing:YES];
 }
 
