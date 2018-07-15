@@ -66,6 +66,14 @@ Keyboard.hideFormAccessoryBar = function (hide, success) {
     }
 };
 
+Keyboard.setKeyboardResize = function(shouldResize, success) {
+  if (shouldResize) {
+    exec(success, null, 'Keyboard', 'setKeyboardResize', [shouldResize]);
+  } else {
+    exec(success, null, 'Keyboard', 'setKeyboardResize', [false]);
+  }
+};
+
 Keyboard.hide = function () {
     exec(null, null, "Keyboard", "hide", []);
 };
