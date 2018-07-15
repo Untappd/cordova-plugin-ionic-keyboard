@@ -181,6 +181,22 @@ typedef enum : NSUInteger {
     }
 }
 
+- (void)setKeyboardResize:(CDVInvokedUrlCommand *)command
+{
+    BOOL invert = [[command.arguments objectAtIndex:0] boolValue];
+    
+    NSLog(@"Should Resiz: %", invert);
+    
+    if (invert) {
+        self.keyboardResizes = YES;
+    } else {
+        self.keyboardResizes = NO;
+    }
+    
+    [self.commandDelegate sendPluginResult:[CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsBool:self.keyboardResizes]
+                                callbackId:command.callbackId];
+}
+
 - (void)_updateFrame
 {
     NSLog(@"CDVIonicKeyboard: updating frame");
